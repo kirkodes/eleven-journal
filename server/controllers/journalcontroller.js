@@ -30,9 +30,6 @@ router.post("/create", validateJWT, async (req, res) => {
     JournalModel.create(journalEntry)
 });
 
-router.get('/about', (req, res) => {
-    res.send("This is the about route!")
-});
 /*
 ===================
 Get all Journals
@@ -126,6 +123,10 @@ router.delete("/delete/:id", validateJWT, async (req, res) => {
     } catch (err) {
         res.status(500).json({ error: err });
     }
+});
+
+router.get('/about', (req, res) => {
+    res.send("This is the about route!")
 });
 
 module.exports = router; // export the module for usage outside the file
