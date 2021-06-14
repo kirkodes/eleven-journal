@@ -3,6 +3,7 @@ const Express = require("express"); //import statement so I can use express
 const app = Express(); // fires off a top-level function that allows me to create an Express app
 const dbConnection = require("./db"); // imports the db file
 
+app.use(require('./middleware/headers')); // this activates our headers in app.js. Since this file is read sequentially, the headers must come before the routes are declared... also needs to be high enough in the order of this file to pass the value of "Content-Type" into Express.json()
 // app.use('/test', (req, res) => {
 //     res.send('This is a message from the test endpoint on the server!')
 // }); //the canvas module said to remove this, but I wanna keep it to view as examples later

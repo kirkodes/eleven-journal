@@ -3,7 +3,7 @@ const router = Express.Router(); // new variable called router, that uses the Ex
 let validateJWT = require("../middleware/validate-jwt");
 const { JournalModel } = require("../models");
 
-router.get('/practice', validateJWT, (req, res) => { // using the router object here by using the router variable to get access into the Router() object methods. the .get() is a method in the object; its called to complete an HTTP GET request. .get() takes in 2 arguments. 1st argument is the path /practice; 2nd argument is an anonymous function AKA the "handler function". The application "listens" for requests that match the specified routes (/practice) and methods
+router.get('/practice', (req, res) => { // using the router object here by using the router variable to get access into the Router() object methods. the .get() is a method in the object; its called to complete an HTTP GET request. .get() takes in 2 arguments. 1st argument is the path /practice; 2nd argument is an anonymous function AKA the "handler function". The application "listens" for requests that match the specified routes (/practice) and methods
     res.send('Hey!! This is a practice route!') // .send() is an express method that can be called on the res (response object). My response parameter is a simple string
 });
 
@@ -27,7 +27,6 @@ router.post("/create", validateJWT, async (req, res) => {
     } catch (err) {
         res.status(500).json({ error: err });
     }
-    JournalModel.create(journalEntry)
 });
 
 /*
