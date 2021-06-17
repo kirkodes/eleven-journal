@@ -81,19 +81,42 @@ router.get("/title", async (req, res) => {
 Update a Journal
 ===================
 */
-router.put("/update/:entryId", validateJWT, async (req, res) => { // PUT replaces whatever is there with what we give it; put means to update
+// router.put("/update/:entryId", validateJWT, async (req, res) => { // PUT replaces whatever is there with what we give it; put means to update
+//     const { title, date, entry } = req.body.journal;
+//     const journalId = req.params.entryId;
+//     const userId = req.user.id;
+
+//     const query = {
+//         where: {
+//             title: title,
+//             date: date,
+//             entry: entry
+//         }
+//     };
+
+//     try {
+//         const update = await JournalModel.update(updatedJournal, query);
+//         res.status(200).json(update);
+//     } catch (err) {
+//         res.status(500).json({ error: err });
+//     }
+// });
+
+router.put("/update/:entryId", validateJWT, async (req, res) => {
     const { title, date, entry } = req.body.journal;
     const journalId = req.params.entryId;
     const userId = req.user.id;
-
     const query = {
         where: {
-            title: title,
-            date: date,
-            entry: entry
+            id: journalId,
+            owner: userId
         }
     };
-
+    const updatedJournal = {
+        title: title,
+        date: date,
+        entry: entry
+    };
     try {
         const update = await JournalModel.update(updatedJournal, query);
         res.status(200).json(update);
@@ -101,6 +124,7 @@ router.put("/update/:entryId", validateJWT, async (req, res) => { // PUT replace
         res.status(500).json({ error: err });
     }
 });
+
 /*
 ===================
 Delete a Journal
